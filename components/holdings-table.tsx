@@ -79,45 +79,45 @@ export function HoldingsTable({
       )}
     >
       <div className="overflow-x-auto">
-        <table className="w-full min-w-212.5 text-left text-xs sm:text-sm">
+        <table className="w-full min-w-212.5 table-fixed text-left text-xs sm:text-sm">
           <thead className="bg-[#f9fafc] text-slate-700 dark:bg-[#0F1425] dark:text-slate-100">
             <tr>
-              <th className="w-10 px-4 py-4">
+              <th className="w-8 px-4 py-4">
                 <Checkbox
                   checked={isAllSelected}
                   onCheckedChange={(checked) => onToggleAll(Boolean(checked))}
                   aria-label="Select all holdings"
                 />
               </th>
-              <th className="px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Asset</th>
-              <th className="px-3 py-4 font-semibold text-center sm:text-left text-slate-500 dark:text-slate-300">
+              <th className="w-[16%] px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Asset</th>
+              <th className="w-[18%] px-3 py-4 font-semibold text-center sm:text-left text-slate-500 dark:text-slate-300">
                 <div className="leading-tight">
                   <p>Holdings</p>
                   <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">Current Market Rate</p>
                 </div>
               </th>
-              <th className="px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Total Current Value</th>
-              <th className="px-3 py-4 font-semibold">
+              <th className="w-[16%] px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Total Current Value</th>
+              <th className="w-[14%] px-3 py-4 font-semibold">
                 <button 
                   type="button" 
                   onClick={() => onSort('stcg')}
                   className="group flex items-center gap-1.5 focus:outline-hidden hover:text-blue-600 dark:hover:text-blue-400 text-slate-500 dark:text-slate-300 transition-colors"
                 >
-                  <span>Short-term</span>
+                  <span className="whitespace-nowrap">Short-term</span>
                   {renderSortIcon('stcg')}
                 </button>
               </th>
-              <th className="px-3 py-4 font-semibold">
+              <th className="w-[14%] px-3 py-4 font-semibold">
                 <button 
                   type="button" 
                   onClick={() => onSort('ltcg')}
                   className="group flex items-center gap-1.5 focus:outline-hidden hover:text-blue-600 dark:hover:text-blue-400 text-slate-500 dark:text-slate-300 transition-colors"
                 >
-                  <span>Long-Term</span>
+                  <span className="whitespace-nowrap">Long-Term</span>
                   {renderSortIcon('ltcg')}
                 </button>
               </th>
-              <th className="px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Amount to Sell</th>
+              <th className="w-[12%] px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Amount to Sell</th>
             </tr>
           </thead>
           <tbody>

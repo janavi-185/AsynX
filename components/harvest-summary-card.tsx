@@ -90,13 +90,13 @@ export default function HarvestSummaryCard({
 
         <div
           className={cn(
-            "pt-3 text-sm font-semibold sm:text-base",
+            "pt-3 text-sm font-semibold sm:text-base space-y-2",
             isPost ? "border-t border-white/20" : "border-t border-border",
           )}
         >
-          <div className="flex items-center gap-3">
-            <span className="text-md sm:text-lg">{totalLabel}:</span>
-            <span className="text-lg sm:text-3xl">{formatCurrency(aggregate)}</span>
+          <div className="flex flex-row items-center justify-between gap-2">
+            <span className="text-sm sm:text-lg whitespace-nowrap shrink-0">{totalLabel}:</span>
+            <span className="text-lg sm:text-3xl tracking-tight text-right truncate">{formatCurrency(aggregate)}</span>
           </div>
 
           {isPost && showSavings ? (

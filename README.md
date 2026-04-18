@@ -2,7 +2,7 @@
 
 A precision-crafted, highly interactive React dashboard built to calculate, simulate, and optimize crypto tax harvesting. Designed pixel-perfectly with Next.js and Tailwind CSS.
 
-**[🌐 View Live Deployment](#)** *(Add your Vercel/Netlify link here)*
+**[🌐 View Live Deployment](asyn-x.vercel.app)** 
 
 ## 📸 Screenshots
 
@@ -25,7 +25,7 @@ A precision-crafted, highly interactive React dashboard built to calculate, simu
   Selected table rows receive distinct background highlighting (e.g., deep blue in dark mode) accompanied by dynamic, automatically recalculating totals so the user receives instant, native-feeling feedback.
 
 - **"View All" Functionality**  
-  The holdings table automatically caps at the top 5 assets to reduce cognitive load and keep the UI uncluttered, featuring a smooth, toggleable `View all / Show less` expander.
+  The holdings table automatically caps at the top 4 assets to reduce cognitive load and keep the UI uncluttered, featuring a smooth, toggleable `View all / Show less` expander.
 
 - **Intelligent Tri-state Sorting**  
   Clickable table headers offering immediate Ascending, Descending, and Default restorable sorting on both *Short-term* and *Long-term* columns, complete with indicator arrows.

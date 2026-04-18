@@ -254,7 +254,7 @@ export default function KoinXPage() {
 									Holdings
 								</h3>
 								<HoldingsTable
-									holdings={showAllHoldings ? orderedHoldings : orderedHoldings.slice(0, 5)}
+									holdings={showAllHoldings ? orderedHoldings : orderedHoldings.slice(0, 3)}
 									selectedRowIds={selectedRowIds}
 									onToggleAll={handleToggleAll}
 									onToggleRow={handleToggleRow}
@@ -262,7 +262,7 @@ export default function KoinXPage() {
 									sortConfig={sortConfig}
 									onSort={handleSort}
 								/>
-								{!showAllHoldings && orderedHoldings.length > 5 && (
+								{!showAllHoldings && orderedHoldings.length > 2 && (
 									<button
 										type="button"
 										onClick={() => setShowAllHoldings(true)}
@@ -271,7 +271,7 @@ export default function KoinXPage() {
 										View all
 									</button>
 								)}
-								{showAllHoldings && orderedHoldings.length > 5 && (
+								{showAllHoldings && orderedHoldings.length > 4 && (
 									<button
 										type="button"
 										onClick={() => setShowAllHoldings(false)}
