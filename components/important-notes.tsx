@@ -33,14 +33,14 @@ export default function ImportantNotes({ className }: ImportantNotesProps) {
         aria-expanded={open}
       >
         <span className="flex items-center gap-3">
-          <div className="flex size-[18px] items-center justify-center rounded-full border border-blue-600 dark:border-blue-400">
+          <div className="flex size-4.5 items-center justify-center rounded-full border border-blue-600 dark:border-blue-400">
             <Info className="size-3 text-blue-600 dark:text-blue-400" />
           </div>
           <span>Important Notes & Disclaimers</span>
         </span>
         <ChevronDown
           className={cn(
-            "size-[18px] text-slate-500 transition-transform dark:text-slate-300",
+            "size-4.5 text-slate-500 transition-transform dark:text-slate-300",
             open ? "rotate-180" : "rotate-0",
           )}
         />

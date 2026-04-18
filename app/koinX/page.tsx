@@ -61,6 +61,9 @@ export default function KoinXPage() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
+	const [showAllHoldings, setShowAllHoldings] = useState(false);
+
+	const [sortConfig, setSortConfig] = useState<{ key: 'stcg' | 'ltcg' | null, direction: 'asc' | 'desc' }>({ key: null, direction: 'asc' });
 
 	useEffect(() => {
 		let mounted = true;
@@ -103,12 +106,34 @@ export default function KoinXPage() {
 	}, []);
 
 	const orderedHoldings = useMemo(() => {
-		return [...holdings].sort((a, b) => {
-			const aMagnitude = Math.abs(a.stcg.gain) + Math.abs(a.ltcg.gain);
-			const bMagnitude = Math.abs(b.stcg.gain) + Math.abs(b.ltcg.gain);
-			return bMagnitude - aMagnitude;
+		const sorted = [...holdings];
+
+		if (sortConfig.key) {
+			sorted.sort((a, b) => {
+				const valA = a[sortConfig.key!].gain;
+				const valB = b[sortConfig.key!].gain;
+				return sortConfig.direction === 'asc' ? valA - valB : valB - valA;
+			});
+		} else {
+			sorted.sort((a, b) => {
+				const aMagnitude = Math.abs(a.stcg.gain) + Math.abs(a.ltcg.gain);
+				const bMagnitude = Math.abs(b.stcg.gain) + Math.abs(b.ltcg.gain);
+				return bMagnitude - aMagnitude;
+			});
+		}
+
+		return sorted;
+	}, [holdings, sortConfig]);
+
+	const handleSort = (key: 'stcg' | 'ltcg') => {
+		setSortConfig((current) => {
+			if (current.key === key) {
+				if (current.direction === 'asc') return { key, direction: 'desc' };
+				return { key: null, direction: 'asc' };
+			}
+			return { key, direction: 'asc' };
 		});
-	}, [holdings]);
+	};
 
 	const selectedHoldings = useMemo(() => {
 		return orderedHoldings.filter((holding, index) =>
@@ -167,11 +192,11 @@ export default function KoinXPage() {
 				<Navbar />
 
 				<div className="mx-auto max-w-7xl space-y-5 p-4 sm:p-6 lg:p-8">
-					<div className="flex items-center gap-3 relative z-10">
-						<h2 className="text-3xl font-semibold leading-none text-slate-800 dark:text-slate-100 sm:text-4xl">
+					<div className="flex flex-wrap sm:flex-nowrap items-center gap-3 relative z-10">
+						<h2 className="text-[22px] font-semibold leading-tight text-slate-800 dark:text-slate-100 sm:text-4xl">
 							Tax Harvesting
 						</h2>
-						<div className="group relative flex items-center pt-2">
+						<div className="group relative flex items-center sm:pt-2">
 							<button
 								type="button"
 								className="text-sm font-semibold text-blue-600 hover:text-blue-700 underline underline-offset-4 dark:text-blue-400 dark:hover:text-blue-300"
@@ -225,22 +250,36 @@ export default function KoinXPage() {
 							</div>
 
 							<section className="rounded-xl border border-slate-200 bg-white p-3 dark:border-[#2C3B6E]/30 dark:bg-[#161C2D] sm:p-5">
-								<h3 className="mb-4 text-[22px] font-semibold leading-none text-slate-800 dark:text-slate-100">
+								<h3 className="mb-4 text-lg font-semibold leading-none text-slate-800 dark:text-slate-100 sm:text-[22px]">
 									Holdings
 								</h3>
 								<HoldingsTable
-									holdings={orderedHoldings}
+									holdings={showAllHoldings ? orderedHoldings : orderedHoldings.slice(0, 5)}
 									selectedRowIds={selectedRowIds}
 									onToggleAll={handleToggleAll}
 									onToggleRow={handleToggleRow}
 									rowIdAccessor={makeRowId}
+									sortConfig={sortConfig}
+									onSort={handleSort}
 								/>
-								<button
-									type="button"
-									className="mt-4 text-sm font-semibold text-blue-600 underline underline-offset-2 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-								>
-									View all
-								</button>
+								{!showAllHoldings && orderedHoldings.length > 5 && (
+									<button
+										type="button"
+										onClick={() => setShowAllHoldings(true)}
+										className="mt-4 text-sm font-semibold text-blue-600 underline underline-offset-2 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+									>
+										View all
+									</button>
+								)}
+								{showAllHoldings && orderedHoldings.length > 5 && (
+									<button
+										type="button"
+										onClick={() => setShowAllHoldings(false)}
+										className="mt-4 text-sm font-semibold text-blue-600 underline underline-offset-2 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+									>
+										Show less
+									</button>
+								)}
 							</section>
 						</>
 					) : null}

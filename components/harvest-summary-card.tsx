@@ -95,8 +95,8 @@ export default function HarvestSummaryCard({
           )}
         >
           <div className="flex items-center gap-3">
-            <span className="text-base sm:text-lg">{totalLabel}:</span>
-            <span className="text-2xl sm:text-3xl">{formatCurrency(aggregate)}</span>
+            <span className="text-md sm:text-lg">{totalLabel}:</span>
+            <span className="text-lg sm:text-3xl">{formatCurrency(aggregate)}</span>
           </div>
 
           {isPost && showSavings ? (

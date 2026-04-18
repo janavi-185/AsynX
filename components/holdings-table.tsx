@@ -3,6 +3,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import type { Holding } from "@/types";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 interface HoldingsTableProps {
   holdings: Holding[];
@@ -10,6 +11,8 @@ interface HoldingsTableProps {
   onToggleAll: (checked: boolean) => void;
   onToggleRow: (rowId: string, checked: boolean, holding: Holding) => void;
   rowIdAccessor?: (holding: Holding, index: number) => string;
+  sortConfig?: { key: 'stcg' | 'ltcg' | null, direction: 'asc' | 'desc' };
+  onSort?: (key: 'stcg' | 'ltcg') => void;
   className?: string;
 }
 
@@ -53,11 +56,20 @@ export function HoldingsTable({
   onToggleAll,
   onToggleRow,
   rowIdAccessor = defaultRowIdAccessor,
+  sortConfig = { key: null, direction: 'asc' },
+  onSort = () => {},
   className,
 }: HoldingsTableProps) {
   const totalRows = holdings.length;
   const selectedRows = selectedRowIds.size;
   const isAllSelected = totalRows > 0 && selectedRows === totalRows;
+
+  const renderSortIcon = (key: 'stcg' | 'ltcg') => {
+    if (sortConfig.key === key) {
+      return sortConfig.direction === 'asc' ? <ArrowUp className="size-3.5" /> : <ArrowDown className="size-3.5" />;
+    }
+    return <ArrowUpDown className="size-3.5 text-slate-400 opacity-50 transition-opacity group-hover:opacity-100" />;
+  };
 
   return (
     <div
@@ -77,17 +89,35 @@ export function HoldingsTable({
                   aria-label="Select all holdings"
                 />
               </th>
-              <th className="px-3 py-4 font-semibold">Asset</th>
-              <th className="px-3 py-4 font-semibold text-center sm:text-left">
+              <th className="px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Asset</th>
+              <th className="px-3 py-4 font-semibold text-center sm:text-left text-slate-500 dark:text-slate-300">
                 <div className="leading-tight">
                   <p>Holdings</p>
                   <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">Current Market Rate</p>
                 </div>
               </th>
-              <th className="px-3 py-4 font-semibold">Total Current Value</th>
-              <th className="px-3 py-4 font-semibold">Short-term</th>
-              <th className="px-3 py-4 font-semibold">Long-Term</th>
-              <th className="px-3 py-4 font-semibold">Amount to Sell</th>
+              <th className="px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Total Current Value</th>
+              <th className="px-3 py-4 font-semibold">
+                <button 
+                  type="button" 
+                  onClick={() => onSort('stcg')}
+                  className="group flex items-center gap-1.5 focus:outline-hidden hover:text-blue-600 dark:hover:text-blue-400 text-slate-500 dark:text-slate-300 transition-colors"
+                >
+                  <span>Short-term</span>
+                  {renderSortIcon('stcg')}
+                </button>
+              </th>
+              <th className="px-3 py-4 font-semibold">
+                <button 
+                  type="button" 
+                  onClick={() => onSort('ltcg')}
+                  className="group flex items-center gap-1.5 focus:outline-hidden hover:text-blue-600 dark:hover:text-blue-400 text-slate-500 dark:text-slate-300 transition-colors"
+                >
+                  <span>Long-Term</span>
+                  {renderSortIcon('ltcg')}
+                </button>
+              </th>
+              <th className="px-3 py-4 font-semibold text-slate-500 dark:text-slate-300">Amount to Sell</th>
             </tr>
           </thead>
           <tbody>
