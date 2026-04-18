@@ -1,10 +1,5 @@
-import { Demo } from '@/components/demo'
-import React from 'react'
+import { redirect } from "next/navigation";
 
-const page = () => {
-  return (
-    <Demo />
-  )
+export default function Page() {
+  redirect("/koinX");
 }
-
-export default page
