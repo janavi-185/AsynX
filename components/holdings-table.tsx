@@ -82,7 +82,7 @@ export function HoldingsTable({
         <table className="w-full min-w-212.5 table-fixed text-left text-xs sm:text-sm">
           <thead className="bg-[#f9fafc] text-slate-700 dark:bg-[#0F1425] dark:text-slate-100">
             <tr>
-              <th className="w-8 px-4 py-4">
+              <th className="w-13 px-5 py-5 text-center align-middle">
                 <Checkbox
                   checked={isAllSelected}
                   onCheckedChange={(checked) => onToggleAll(Boolean(checked))}
@@ -135,7 +135,7 @@ export function HoldingsTable({
                       : "bg-white dark:bg-[#161C2D]",
                   )}
                 >
-                  <td className="px-4 py-4 align-top">
+                  <td className="px-5 py-5 align-top">
                     <Checkbox
                       checked={isSelected}
                       onCheckedChange={(checked) =>

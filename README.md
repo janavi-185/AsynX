@@ -2,13 +2,16 @@
 
 A precision-crafted, highly interactive React dashboard built to calculate, simulate, and optimize crypto tax harvesting. Designed pixel-perfectly with Next.js and Tailwind CSS.
 
-**[🌐 View Live Deployment](asyn-x.vercel.app)** 
+**[🌐 View Live Deployment](https://asyn-x.vercel.app)** 
 
 ## 📸 Screenshots
 
 *(Replace with actual screenshot paths if available)*
-- **Desktop Dark Mode:** `![Desktop Dark Mode](./public/screenshots/desktop-dark.png)`
-- **Mobile Responsive View:** `![Mobile View](./public/screenshots/mobile-view.png)`
+- **Desktop Dark Mode:**
+  ![Desktop Dark Mode](./public/screenshots/desktop-dark.png)
+
+- **Mobile Responsive View:**
+  ![Mobile View](./public/screenshots/mobile-view.png)
 
 ## ✨ Key Features & Bonus Implementations
 
