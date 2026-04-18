@@ -44,8 +44,8 @@ export default function HarvestSummaryCard({
       className={cn(
         "gap-3 py-4 shadow-none",
         isPost
-          ? "border-0 bg-linear-to-br from-sky-400 via-blue-500 to-blue-700 text-white"
-          : "border-slate-200 bg-[#f9fafc] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100",
+          ? "border-0 bg-[#3B7BFF] text-white shadow-lg shadow-blue-900/20"
+          : "border-slate-200 bg-white dark:border-[#2C3B6E]/30 dark:bg-[#161C2D] dark:text-slate-100",
         className,
       )}
     >
@@ -56,8 +56,8 @@ export default function HarvestSummaryCard({
       <CardContent className="space-y-2.5 text-xs sm:text-sm">
         <div
           className={cn(
-            "grid grid-cols-3 gap-2",
-            isPost ? "text-white/80" : "text-muted-foreground",
+            "grid grid-cols-3 gap-2 font-medium tracking-wide",
+            isPost ? "text-white" : "text-slate-500 dark:text-slate-300",
           )}
         >
           <span />
@@ -65,13 +65,13 @@ export default function HarvestSummaryCard({
           <span className="text-right">Long-term</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 font-medium">
           <span>Profits</span>
           <span className="text-right">{formatCurrency(capitalGains.stcg.profits)}</span>
           <span className="text-right">{formatCurrency(capitalGains.ltcg.profits)}</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 font-medium">
           <span>Losses</span>
           <span className="text-right">-{formatCurrency(capitalGains.stcg.losses)}</span>
           <span className="text-right">-{formatCurrency(capitalGains.ltcg.losses)}</span>
@@ -94,15 +94,18 @@ export default function HarvestSummaryCard({
             isPost ? "border-t border-white/20" : "border-t border-border",
           )}
         >
-          <span>{totalLabel}:</span>{" "}
-          <span className="text-xl sm:text-3xl">{formatCurrency(aggregate)}</span>
-        </div>
+          <div className="flex items-center gap-3">
+            <span className="text-base sm:text-lg">{totalLabel}:</span>
+            <span className="text-2xl sm:text-3xl">{formatCurrency(aggregate)}</span>
+          </div>
 
-        {isPost && showSavings ? (
-          <p className="text-xs font-medium text-amber-200 sm:text-sm">
-            You are going to save upto {formatCurrency(savingsAmount)}
-          </p>
-        ) : null}
+          {isPost && showSavings ? (
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <span className="text-xl leading-none">🎉</span>
+              <span>You are going to save upto {formatCurrency(savingsAmount)}</span>
+            </div>
+          ) : null}
+        </div>
       </CardContent>
     </Card>
   );

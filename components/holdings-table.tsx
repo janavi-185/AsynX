@@ -42,9 +42,9 @@ const formatQuantity = (value: number): string => {
 };
 
 const gainClassName = (gain: number): string => {
-  if (gain > 0) return "text-emerald-600";
-  if (gain < 0) return "text-rose-600";
-  return "text-foreground";
+  if (gain > 0) return "text-emerald-600 dark:text-emerald-400";
+  if (gain < 0) return "text-rose-600 dark:text-rose-400";
+  return "text-slate-900 dark:text-slate-100";
 };
 
 export function HoldingsTable({
@@ -62,32 +62,32 @@ export function HoldingsTable({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-none dark:border-slate-700 dark:bg-slate-900",
+        "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-none dark:border-slate-700/50 dark:bg-[#161C2D]",
         className,
       )}
     >
       <div className="overflow-x-auto">
-        <table className="w-full min-w-230 text-left text-xs sm:text-sm">
-          <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+        <table className="w-full min-w-212.5 text-left text-xs sm:text-sm">
+          <thead className="bg-[#f9fafc] text-slate-700 dark:bg-[#0F1425] dark:text-slate-100">
             <tr>
-              <th className="w-10 px-4 py-3">
+              <th className="w-10 px-4 py-4">
                 <Checkbox
                   checked={isAllSelected}
                   onCheckedChange={(checked) => onToggleAll(Boolean(checked))}
                   aria-label="Select all holdings"
                 />
               </th>
-              <th className="px-3 py-3 font-medium">Asset</th>
-              <th className="px-3 py-3 font-medium">
+              <th className="px-3 py-4 font-semibold">Asset</th>
+              <th className="px-3 py-4 font-semibold text-center sm:text-left">
                 <div className="leading-tight">
                   <p>Holdings</p>
-                  <p className="text-[10px] font-medium text-slate-500">Current Market Rate</p>
+                  <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">Current Market Rate</p>
                 </div>
               </th>
-              <th className="px-3 py-3 font-medium">Total Current Value</th>
-              <th className="px-3 py-3 font-medium">Short-term</th>
-              <th className="px-3 py-3 font-medium">Long-Term</th>
-              <th className="px-3 py-3 font-medium">Amount to Sell</th>
+              <th className="px-3 py-4 font-semibold">Total Current Value</th>
+              <th className="px-3 py-4 font-semibold">Short-term</th>
+              <th className="px-3 py-4 font-semibold">Long-Term</th>
+              <th className="px-3 py-4 font-semibold">Amount to Sell</th>
             </tr>
           </thead>
           <tbody>
@@ -99,13 +99,13 @@ export function HoldingsTable({
                 <tr
                   key={rowId}
                   className={cn(
-                    "border-t border-slate-200 transition-colors dark:border-slate-700",
+                    "border-t border-slate-200 transition-colors dark:border-slate-700/50",
                     isSelected
-                      ? "bg-blue-50 dark:bg-blue-950/40"
-                      : "bg-white dark:bg-slate-900",
+                      ? "bg-blue-50 dark:bg-[#1A254B]"
+                      : "bg-white dark:bg-[#161C2D]",
                   )}
                 >
-                  <td className="px-4 py-3 align-top">
+                  <td className="px-4 py-4 align-top">
                     <Checkbox
                       checked={isSelected}
                       onCheckedChange={(checked) =>
@@ -115,8 +115,8 @@ export function HoldingsTable({
                     />
                   </td>
 
-                  <td className="px-3 py-3 align-top">
-                    <div className="flex items-start gap-2">
+                  <td className="px-3 py-4 align-top">
+                    <div className="flex items-start gap-3">
                       <img
                         src={holding.logo}
                         alt={holding.coinName}
@@ -124,44 +124,44 @@ export function HoldingsTable({
                         loading="lazy"
                       />
                       <div>
-                        <p className="font-medium text-slate-900 dark:text-slate-100">{holding.coin}</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400">{holding.coinName}</p>
+                        <p className="font-semibold text-slate-900 dark:text-slate-100">{holding.coin}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{holding.coinName}</p>
                       </div>
                     </div>
                   </td>
 
-                  <td className="px-3 py-3 align-top">
-                    <p className="font-medium text-slate-900 dark:text-slate-100">
+                  <td className="px-3 py-4 align-top">
+                    <p className="font-semibold text-slate-900 dark:text-slate-100">
                       {formatQuantity(holding.totalHolding)} {holding.coin}
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                       {formatCurrency(holding.averageBuyPrice)}/{holding.coin}
                     </p>
                   </td>
 
-                  <td className="px-3 py-3 align-top font-medium text-slate-900 dark:text-slate-100">
+                  <td className="px-3 py-4 align-top font-semibold text-slate-900 dark:text-slate-100">
                     {formatCurrency(holding.currentPrice * holding.totalHolding)}
                   </td>
 
-                  <td className="px-3 py-3 align-top">
+                  <td className="px-3 py-4 align-top">
                     <p className={cn("font-medium", gainClassName(holding.stcg.gain))}>
-                      {compactCurrency(holding.stcg.gain)}
+                      {holding.stcg.gain > 0 ? "+" : ""}{compactCurrency(holding.stcg.gain)}
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                       {formatQuantity(holding.stcg.balance)} {holding.coin}
                     </p>
                   </td>
 
-                  <td className="px-3 py-3 align-top">
+                  <td className="px-3 py-4 align-top">
                     <p className={cn("font-medium", gainClassName(holding.ltcg.gain))}>
-                      {compactCurrency(holding.ltcg.gain)}
+                      {holding.ltcg.gain > 0 ? "+" : ""}{compactCurrency(holding.ltcg.gain)}
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                       {formatQuantity(holding.ltcg.balance)} {holding.coin}
                     </p>
                   </td>
 
-                  <td className="px-3 py-3 align-top font-medium text-slate-700 dark:text-slate-200">
+                  <td className="px-3 py-4 align-top font-medium text-slate-700 dark:text-slate-300">
                     {isSelected
                       ? `${formatQuantity(holding.totalHolding)} ${holding.coin}`
                       : "-"}

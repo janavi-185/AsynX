@@ -17,42 +17,51 @@ const defaultNotes = [
 ];
 
 export default function ImportantNotes({ className }: ImportantNotesProps) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <section
       className={cn(
-        "rounded-md border border-blue-400 bg-blue-100 dark:border-blue-500/60 dark:bg-slate-900",
+        "rounded-lg border border-blue-400 bg-blue-100 dark:border-[#2C3B6E] dark:bg-[#1A223E]",
         className,
       )}
     >
       <button
         type="button"
-        className="flex w-full items-center justify-between px-3 py-2 text-left text-sm font-semibold text-slate-700 dark:text-slate-200"
+        className="flex w-full items-center justify-between px-4 py-3 text-left text-[15px] font-medium text-slate-700 dark:text-slate-100"
         onClick={() => setOpen((current) => !current)}
         aria-expanded={open}
       >
-        <span className="flex items-center gap-2">
-          <Info className="size-4 text-blue-600 dark:text-blue-400" />
+        <span className="flex items-center gap-3">
+          <div className="flex size-[18px] items-center justify-center rounded-full border border-blue-600 dark:border-blue-400">
+            <Info className="size-3 text-blue-600 dark:text-blue-400" />
+          </div>
           <span>Important Notes & Disclaimers</span>
         </span>
         <ChevronDown
           className={cn(
-            "size-4 text-slate-500 transition-transform dark:text-slate-300",
+            "size-[18px] text-slate-500 transition-transform dark:text-slate-300",
             open ? "rotate-180" : "rotate-0",
           )}
         />
       </button>
 
-      {open ? (
-        <div className="border-t border-blue-200 px-4 py-3 dark:border-blue-500/40">
-          <ul className="list-disc space-y-1.5 pl-4 text-sm text-slate-600 dark:text-slate-300">
-            {defaultNotes.map((note) => (
-              <li key={note}>{note}</li>
-            ))}
-          </ul>
+      <div
+        className={cn(
+          "grid transition-all duration-300 ease-in-out",
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="border-t border-blue-200 px-5 py-4 dark:border-[#2C3B6E]">
+            <ul className="list-disc space-y-2.5 pl-4 text-[14px] text-slate-600 dark:text-slate-300">
+              {defaultNotes.map((note) => (
+                <li key={note}>{note}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-      ) : null}
+      </div>
     </section>
   );
 }

@@ -163,10 +163,10 @@ export default function KoinXPage() {
 	};
 
 	return (
-			<section className="mx-auto w-full overflow-hidden rounded-sm bg-[#edf1f6]">
+			<section className="mx-auto w-full min-h-screen overflow-hidden bg-[#edf1f6] dark:bg-[#0F1425]">
 				<Navbar />
 
-				<div className="mx-auto max-w-7xl space-y-3 p-4 sm:p-6">
+				<div className="mx-auto max-w-7xl space-y-5 p-4 sm:p-6 lg:p-8">
 					<div className="flex items-center gap-3 relative z-10">
 						<h2 className="text-3xl font-semibold leading-none text-slate-800 dark:text-slate-100 sm:text-4xl">
 							Tax Harvesting
@@ -224,8 +224,8 @@ export default function KoinXPage() {
 								/>
 							</div>
 
-							<section className="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-900 sm:p-4">
-								<h3 className="mb-3 text-[30px] font-semibold leading-none text-slate-800 dark:text-slate-100">
+							<section className="rounded-xl border border-slate-200 bg-white p-3 dark:border-[#2C3B6E]/30 dark:bg-[#161C2D] sm:p-5">
+								<h3 className="mb-4 text-[22px] font-semibold leading-none text-slate-800 dark:text-slate-100">
 									Holdings
 								</h3>
 								<HoldingsTable
@@ -237,7 +237,7 @@ export default function KoinXPage() {
 								/>
 								<button
 									type="button"
-									className="mt-3 text-sm font-semibold text-blue-600 underline underline-offset-2 dark:text-blue-400"
+									className="mt-4 text-sm font-semibold text-blue-600 underline underline-offset-2 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
 								>
 									View all
 								</button>
